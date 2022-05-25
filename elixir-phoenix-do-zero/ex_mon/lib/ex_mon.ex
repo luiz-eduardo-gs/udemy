@@ -4,6 +4,14 @@ defmodule ExMon do
 
   @computer_name "Robotinik"
   @computer_moves [:mov_avg, :mov_rnd, :mov_heal]
+  @computer_moves_increased_heal_change [
+    :mov_avg,
+    :mov_rnd,
+    :mov_heal,
+    :mov_heal,
+    :mov_heal,
+    :mov_heal
+  ]
 
   def create_player(name, mov_avg, mov_rnd, mov_heal) do
     Player.build(name, mov_avg, mov_rnd, mov_heal)
@@ -56,13 +64,21 @@ defmodule ExMon do
     Status.print_round_message(Game.info())
   end
 
+  defp check_low_life(life) when life < 40,
+    do: {:ok, Enum.random(@computer_moves_increased_heal_change)}
+
+  defp check_low_life(_life), do: {:ok, Enum.random(@computer_moves)}
+
   defp computer_move(%{turn: :computer, status: :started}) do
     {:ok, Enum.random(@computer_moves)}
     |> do_move()
   end
 
   defp computer_move(%{turn: :computer, status: :continue}) do
-    {:ok, Enum.random(@computer_moves)}
+    :computer
+    |> Game.fetch_player()
+    |> Map.get(:life)
+    |> check_low_life()
     |> do_move()
   end
 
