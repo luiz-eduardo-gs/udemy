@@ -6,9 +6,11 @@ defmodule FizzBuzz do
   end
 
   defp handle_file_read({:error, reason}), do: {:error, "Error reading file: #{reason}"}
+
   defp handle_file_read({:ok, content}) do
-    fizzbuzz = content
-    |> convert_string_to_number_list_and_evaluate_fizzbuzz()
+    fizzbuzz =
+      content
+      |> convert_string_to_number_list_and_evaluate_fizzbuzz()
 
     {:ok, fizzbuzz}
   end
@@ -26,7 +28,7 @@ defmodule FizzBuzz do
   end
 
   defp check_mult(number) when rem(number, 3) == 0 and rem(number, 5) == 0, do: :fizzbuzz
-  defp check_mult(number) when rem(number, 3) == 0,do: :fizz
+  defp check_mult(number) when rem(number, 3) == 0, do: :fizz
   defp check_mult(number) when rem(number, 5) == 0, do: :buzz
   defp check_mult(number), do: number
 end
