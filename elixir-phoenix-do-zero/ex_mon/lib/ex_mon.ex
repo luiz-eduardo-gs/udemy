@@ -13,7 +13,20 @@ defmodule ExMon do
     Player.build(@computer_name, :punch, :kick, :heal)
     |> Game.start(player)
 
+    check_computer_move()
+  end
+
+  defp check_computer_move do
+    Game.info()
+    |> Map.get(:turn)
+    |> handle_computer_start()
+  end
+
+  defp handle_computer_start(:player), do: Status.print_round_message(Game.info())
+
+  defp handle_computer_start(:computer) do
     Status.print_round_message(Game.info())
+    computer_move(Game.info())
   end
 
   def make_move(move) do
@@ -41,6 +54,11 @@ defmodule ExMon do
     end
 
     Status.print_round_message(Game.info())
+  end
+
+  defp computer_move(%{turn: :computer, status: :started}) do
+    {:ok, Enum.random(@computer_moves)}
+    |> do_move()
   end
 
   defp computer_move(%{turn: :computer, status: :continue}) do

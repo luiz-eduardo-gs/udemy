@@ -1,11 +1,13 @@
 defmodule ExMon.Game do
   alias ExMon.Player
 
-  def start(computer, player) do
+  @players [:player, :computer]
+
+  def start(computer, player, player_to_start \\ Enum.random(@players)) do
     initial_value = %{
       computer: computer,
       player: player,
-      turn: :player,
+      turn: player_to_start,
       status: :started
     }
 
