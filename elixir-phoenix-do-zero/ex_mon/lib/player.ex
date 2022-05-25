@@ -1,14 +1,17 @@
 defmodule ExMon.Player do
-  @enforce_keys [:name, :life, :mov_avg, :mov_rnd, :mov_heal]
-  defstruct [:name, :life, :mov_avg, :mov_rnd, :mov_heal]
+  @required_keys [:life, :mov_avg, :mov_heal, :mov_rnd, :name]
+  @max_life 100
+
+  @enforce_keys @required_keys
+  defstruct @required_keys
 
   def build(name, mov_avg, mov_rnd, mov_heal) do
     %ExMon.Player{
-      name: name,
+      life: @max_life,
       mov_avg: mov_avg,
-      mov_rnd: mov_rnd,
       mov_heal: mov_heal,
-      life: 100
+      mov_rnd: mov_rnd,
+      name: name
     }
   end
 end
