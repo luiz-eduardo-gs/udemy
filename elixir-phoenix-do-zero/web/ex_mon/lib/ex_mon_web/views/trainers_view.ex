@@ -12,4 +12,11 @@ defmodule ExMonWeb.TrainersView do
       }
     }
   end
+
+  def render("show.json", %{trainer: %Trainer{id: id, name: name}}) do
+    %{
+      id: id,
+      name: name
+    }
+  end
 end
