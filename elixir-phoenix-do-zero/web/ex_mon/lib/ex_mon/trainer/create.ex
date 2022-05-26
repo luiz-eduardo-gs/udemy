@@ -1,4 +1,4 @@
-def ExMon.Trainer.Create do
+defmodule ExMon.Trainer.Create do
   alias ExMon.{Repo, Trainer}
 
   def call(params) do
