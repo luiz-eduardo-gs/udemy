@@ -35,7 +35,8 @@ defmodule ExMonWeb.TrainerPokemonsView do
           nickname: nickname,
           types: types,
           weight: weight,
-          trainer_id: trainer_id
+          trainer_id: trainer_id,
+          trainer: %Trainer{name: trainer_name}
         }
       }) do
     %{
@@ -44,7 +45,10 @@ defmodule ExMonWeb.TrainerPokemonsView do
       nickname: nickname,
       types: types,
       weight: weight,
-      trainer_id: trainer_id
+      trainer_id: trainer_id,
+      trainer: %{
+        name: trainer_name
+      }
     }
   end
 
