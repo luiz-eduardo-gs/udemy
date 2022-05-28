@@ -12,7 +12,7 @@ defmodule ExMonWeb.Router do
 
     get "/pokemons/:name", PokemonsController, :show
 
-    resources "/trainer_pokemons", TrainerPokemonsController, :create
+    resources "/trainer_pokemons", TrainerPokemonsController
   end
 
   # Enables LiveDashboard only for development
