@@ -24,13 +24,17 @@ defmodule ExMon.Trainer.Pokemon do
     |> apply_action(:insert)
   end
 
-  defp create_changeset(module_or_pokemon, params) do
-    module_or_pokemon
+  def changeset(params) do
+    %__MODULE__{}
     |> cast(params, @required)
     |> validate_required(@required)
     |> validate_length(:nickname, min: 2)
   end
 
-  def changeset(params), do: create_changeset(%__MODULE__{}, params)
-  def changeset(pokemon, params), do: create_changeset(pokemon, params)
+  def update_changeset(pokemon, params) do
+    pokemon
+    |> cast(params, [:nickname])
+    |> validate_required([:nickname])
+    |> validate_length(:nickname, min: 2)
+  end
 end
