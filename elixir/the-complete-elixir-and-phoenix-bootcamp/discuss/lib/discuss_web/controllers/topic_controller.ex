@@ -1,12 +1,13 @@
 defmodule DiscussWeb.TopicController do
   use DiscussWeb, :controller
-  alias Discuss.Topic
+  alias Discuss.{Repo, Topic}
   alias Discuss.Topic.Repository.TopicRepository
 
   action_fallback DiscussWeb.FallbackController
 
   def index(conn, _params) do
-    render(conn, "index.html")
+    topics = Repo.all(Topic)
+    render(conn, "index.html", topics: topics)
   end
 
   def new(conn, _params) do
