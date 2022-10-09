@@ -1,6 +1,7 @@
 defmodule DiscussWeb.TopicController do
   use DiscussWeb, :controller
-  alias Discuss.{Repo, Topic}
+  alias Discuss.Topic
+  alias Discuss.Topic.Repository.TopicRepository
 
   action_fallback DiscussWeb.FallbackController
 
@@ -14,8 +15,7 @@ defmodule DiscussWeb.TopicController do
   end
 
   def create(conn, %{"topic" => topic} = _params) do
-    changeset = Topic.changeset(%Topic{}, topic)
-    with {:ok, _topic} <- Topic.save_topic(changeset) do
+    with {:ok, _topic} <- TopicRepository.create_topic(topic) do
       conn
       |> put_flash(:info, "New topic created successfully!")
       |> redirect(to: Routes.topic_path(conn, :index))

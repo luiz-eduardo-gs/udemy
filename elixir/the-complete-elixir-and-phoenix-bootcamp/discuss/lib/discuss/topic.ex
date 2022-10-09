@@ -8,10 +8,6 @@ defmodule Discuss.Topic do
     field :title, :string
   end
 
-  def save_topic(changeset) do
-    TopicRepository.insert(changeset)
-  end
-
   @doc false
   def changeset(topic, attrs \\ %{}) do
     topic

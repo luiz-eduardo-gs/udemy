@@ -1,10 +1,11 @@
 defmodule Discuss.Topic.Repository.TopicRepository do
-  alias Discuss.Repo
+  alias Discuss.{Repo,Topic}
 
-  def insert(changeset) do
+  def create_topic(attrs \\ %{}) do
+    changeset = Topic.changeset(%Topic{}, attrs)
     case Repo.insert(changeset) do
       {:ok, topic} -> {:ok, topic}
-      {:error, %Ecto.Changeset{} = _changeset} -> {:error, :error_saving_topic}
+      {:error, %Ecto.Changeset{} = _changeset} -> {:error, :error_creating_topic}
     end
   end
 end
