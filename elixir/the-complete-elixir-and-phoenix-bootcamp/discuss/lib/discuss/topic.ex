@@ -2,8 +2,14 @@ defmodule Discuss.Topic do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias Discuss.Topic.Repository.TopicRepository
+
   schema "topics" do
     field :title, :string
+  end
+
+  def save_topic(changeset) do
+    TopicRepository.insert(changeset)
   end
 
   @doc false
