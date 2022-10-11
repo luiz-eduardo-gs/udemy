@@ -12,8 +12,8 @@ defmodule DiscussWeb.TopicController do
 
   def edit(conn, %{"id" => id}) do
     topic = Repo.get(Topic, id)
-    changeset = Topic.changeset(%Topic{}, %{"id" => topic.id, "title" => topic.title})
-    render(conn, "edit.html", changeset: changeset)
+    changeset = Topic.changeset(topic)
+    render(conn, "edit.html", changeset: changeset, topic: topic)
   end
 
   def new(conn, _params) do
@@ -21,7 +21,7 @@ defmodule DiscussWeb.TopicController do
     render(conn, "new.html", changeset: changeset)
   end
 
-  def create(conn, %{"topic" => topic} = _params) do
+  def create(conn, %{"topic" => topic}) do
     with {:ok, _topic} <- TopicRepository.create_topic(topic) do
       conn
       |> put_flash(:info, "New topic created successfully!")
@@ -29,10 +29,10 @@ defmodule DiscussWeb.TopicController do
     end
   end
 
-  def update(conn, %{"id" => _id, "topic" => topic}) do
-    with {:ok, _topic} <- TopicRepository.update_topic(topic) do
+  def update(conn, %{"id" => id, "topic" => topic}) do
+    with {:ok, _topic} <- TopicRepository.update_topic(id, topic) do
       conn
-      |> put_flash(:info, "New topic updated successfully!")
+      |> put_flash(:info, "Topic updated successfully!")
       |> redirect(to: Routes.topic_path(conn, :index))
     end
   end

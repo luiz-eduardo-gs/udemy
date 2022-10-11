@@ -14,12 +14,13 @@ defmodule Discuss.Topic.Repository.TopicRepository do
     end
   end
 
-  def update_topic(attrs \\ %{}) do
-    changeset = Topic.changeset(%Topic{}, attrs)
+  def update_topic(id, attrs \\ %{}) do
+    old_topic = Repo.get(Topic, id)
+    changeset = Topic.changeset(old_topic, attrs)
 
     case Repo.update(changeset) do
       {:ok, topic} -> {:ok, topic}
-      {:error, %Ecto.Changeset{} = changeset} -> {:error, {:error_updating_topic, changeset}}
+      {:error, %Ecto.Changeset{} = changeset} -> {:error, {:error_updating_topic, changeset, old_topic}}
     end
   end
 end

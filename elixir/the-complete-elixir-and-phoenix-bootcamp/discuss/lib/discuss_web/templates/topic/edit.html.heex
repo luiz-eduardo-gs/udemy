@@ -1,7 +1,9 @@
-<%= form_for @changeset, Routes.topic_path(@conn, :update), fn f -> %>
-    <label>
-        Title: <%= text_input f, :title %>
-        <%= error_tag f, :title %>
-        <%= submit "Save", class: "btn btn-primary" %>
-    </label>
+<%= form_for @changeset, Routes.topic_path(@conn, :update, @topic), fn f -> %>
+    <div class="form-group">
+        <label>
+            Title: <%= text_input f, :title, placeholder: "Title", class: "form-control" %>
+            <%= error_tag f, :title %>
+        </label>
+    </div>
+    <%= submit "Save", class: "btn btn-primary" %>
 <% end %>
