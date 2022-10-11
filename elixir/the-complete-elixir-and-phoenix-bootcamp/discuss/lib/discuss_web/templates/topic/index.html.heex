@@ -2,12 +2,17 @@
 
 <ul class="collection">
     <%= for topic <- @topics do %>
-        <li class="collection-item"><%= topic.title %></li>
+        <li class="collection-item">
+            <%= topic.title %>
+            <%= link(to: Routes.topic_path(@conn, :edit, topic.id), class: "waves-effect waves-light btn") do %>
+                Edit <i class="material-icons right">edit</i>
+            <% end %>
+        </li>
     <% end %>
 </ul>
 
 <div class="fixed-action-btn">
-    <%= link( to: Routes.topic_path(@conn, :new), method: :get, class: "btn-floating btn-large waves-effect waves-light red") do %>
+    <%= link( to: Routes.topic_path(@conn, :new), class: "btn-floating btn-large waves-effect waves-light red") do %>
         <i class="material-icons">add</i>
     <% end %>
 </div>
